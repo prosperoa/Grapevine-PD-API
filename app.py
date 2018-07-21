@@ -1,8 +1,28 @@
+import os
 import server
-from flask import Flask
+import sys
+
+from flask import Flask, abort
+from database import Cursor, Database as db
 
 APP_NAME = 'Grapevine PD API'
 app = Flask(APP_NAME)
+
+@app.before_request
+def init_db():
+  try:
+    db.init(
+      minconn=1,
+      maxconn=20,
+      db_url=os.environ.get('DATABASE_URL')
+    )
+  except Exception as e:
+    print(e)
+    abort(500)
+
+@app.teardown_request
+def close_db(error):
+  db.close_all_connections()
 
 @app.route('/')
 def index():
