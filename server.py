@@ -29,6 +29,6 @@ def not_allowed(message='method not allowed for requested url'):
   """HTTP 405: method not allowed"""
   return respond(False, 405, message)
 
-def error(message='an error occured'):
+def error(message='an error occurred'):
   """HTTP 500: internal server error"""
   return respond(False, 500, 'ERROR: ' + message)
