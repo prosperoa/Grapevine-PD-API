@@ -66,7 +66,7 @@ def create():
   if cur.rowcount:
     error('admin account already exists')
 
-  password_hash = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
+  password_hash = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt()).decode('utf8')
   try:
     print('\ncreating account...')
     cur.execute('INSERT INTO admins (first_name, last_name, email, password) values'
