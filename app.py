@@ -3,7 +3,7 @@ import server
 import sys
 
 from flask import Flask, abort
-from database import Cursor, Database as db
+from database import Database as db
 
 APP_NAME = 'Grapevine PD API'
 app = Flask(APP_NAME)
