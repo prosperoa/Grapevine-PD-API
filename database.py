@@ -30,7 +30,7 @@ class Cursor():
     return self.cursor
 
   def __exit__(self, exc_type, exc_val, exc_tb):
-    if exception_value:
+    if exc_val:
       self.conn.rollback()
     else:
       self.cursor.close()
