@@ -9,6 +9,7 @@ from handlers import auth_handler
 APP_NAME = 'Grapevine PD API'
 app = Flask(APP_NAME)
 
+
 @app.before_request
 def init_db():
   try:
@@ -25,13 +26,13 @@ def init_db():
 def close_db(error):
   db.close_all_connections()
 
+
 @app.route('/login', methods=['POST'])
-def login():
-  return auth_handler.login(request)
+def login() : return auth_handler.login(request)
 
 @app.route('/')
-def index():
-  return server.ok(APP_NAME)
+def index() : return server.ok(APP_NAME)
+
 
 @app.errorhandler(400)
 def page_not_found(err):
@@ -48,6 +49,7 @@ def method_not_allowed(err):
 @app.errorhandler(500)
 def internal_server_error(err):
   return server.error()
+
 
 if __name__ == '__main__':
   app.run()
