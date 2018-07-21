@@ -1,11 +1,12 @@
 from psycopg2 import pool
+from psycopg2.extras import RealDictCursor
 
 class Database:
   _connection_pool = None
 
   @classmethod
-  def init(cls, minconn, maxconn, db_url):
-    cls._connection_pool = pool.SimpleConnectionPool(minconn, maxconn, db_url)
+  def init(cls, minconn, maxconn, dsn):
+    cls._connection_pool = pool.SimpleConnectionPool(minconn, maxconn, dsn)
 
   @classmethod
   def get_connection(cls):
@@ -26,7 +27,7 @@ class Cursor():
 
   def __enter__(self):
     self.conn = Database.get_connection()
-    self.cursor = self.conn.cursor()
+    self.cursor = self.conn.cursor(cursor_factory=RealDictCursor)
     return self.cursor
 
   def __exit__(self, exc_type, exc_val, exc_tb):

@@ -2,8 +2,9 @@ import os
 import server
 import sys
 
-from flask import Flask, abort
+from flask import Flask, abort, request
 from database import Database as db
+from handlers import auth_handler
 
 APP_NAME = 'Grapevine PD API'
 app = Flask(APP_NAME)
@@ -14,7 +15,7 @@ def init_db():
     db.init(
       minconn=1,
       maxconn=20,
-      db_url=os.environ.get('DATABASE_URL')
+      dsn=os.environ.get('DATABASE_URL')
     )
   except Exception as e:
     print(e)
@@ -23,6 +24,10 @@ def init_db():
 @app.teardown_request
 def close_db(error):
   db.close_all_connections()
+
+@app.route('/login', methods=['POST'])
+def login():
+  return auth_handler.login(request)
 
 @app.route('/')
 def index():
