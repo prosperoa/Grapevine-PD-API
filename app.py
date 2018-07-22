@@ -3,11 +3,13 @@ import server
 import sys
 
 from flask import Flask, abort, request
+from flask_cors import CORS
 from database import Database as db
 from handlers import auth_handler
 
 APP_NAME = 'Grapevine PD API'
 app = Flask(APP_NAME)
+CORS(app)
 
 
 @app.before_request
