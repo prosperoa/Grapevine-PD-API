@@ -52,13 +52,14 @@ def create():
     answer = input('(yes/no) ').lower()
 
     if answer == 'yes' : break
-    elif answer == 'no': exit(0)
+    elif answer == 'no': create()
+    else               : continue
 
   conn = None
   try:
     conn = psycopg2.connect(os.environ.get('DATABASE_URL'))
   except:
-    error('unable to connect to database')
+    error('unable to connect to database', True)
 
   cur = conn.cursor()
   cur.execute('SELECT id FROM admins WHERE email = %s', (email,))
@@ -77,7 +78,13 @@ def create():
     conn.close()
     print('Admin account successfully created.\n')
   except:
-    error('unable to create admin account')
+    error('unable to create admin account', True)
 
-def error(message):
-  sys.exit('{}{}{}\n'.format(RED, message, ENDC))
+def error(message, quit=False):
+  output = '{}{}{}\n'.format(RED, message, ENDC)
+
+  if quit:
+    sys.exit(output)
+  else:
+    print(output)
+    create()
