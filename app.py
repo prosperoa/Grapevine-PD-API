@@ -5,7 +5,7 @@ import sys
 from flask import Flask, abort, request
 from flask_cors import CORS
 from database import Database as db
-from handlers import auth_handler
+from handlers import auth_handler, users_handler
 
 APP_NAME = 'Grapevine PD API'
 app = Flask(APP_NAME)
@@ -29,11 +29,15 @@ def close_db(error):
   db.close_all_connections()
 
 
+@app.route('/')
+def index() : return server.ok(APP_NAME)
+
 @app.route('/login', methods=['POST'])
 def login() : return auth_handler.login(request)
 
-@app.route('/')
-def index() : return server.ok(APP_NAME)
+
+@app.route('/users', methods=['GET'])
+def get_users() : return users_handler.get_users(request)
 
 
 @app.errorhandler(400)
