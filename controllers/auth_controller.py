@@ -4,11 +4,10 @@ import os
 import server
 from database import Cursor, Database as db
 
-def login(email, password):
+def login(email, password, auth_type):
   try:
     with Cursor() as cur:
-      cur.execute('SELECT first_name, last_name, email, password FROM admins WHERE '
-        'email = %s', (email,))
+      cur.execute('SELECT * FROM users WHERE email = %s and type = %s', (email, auth_type))
 
       if cur.rowcount:
         user = cur.fetchone()

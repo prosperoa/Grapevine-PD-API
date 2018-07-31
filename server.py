@@ -1,5 +1,7 @@
 from flask import jsonify
 
+auth_types = ['regular', 'admin']
+
 def respond(success, status, message=None, data=None):
   """Custom HTTP response"""
   return jsonify({'success': success, 'status': status, 'message': message,
