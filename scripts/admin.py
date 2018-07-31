@@ -1,7 +1,9 @@
 import bcrypt
+import getpass
 import os
 import psycopg2
 import re
+import socket
 import sys
 
 RED = '\033[91m'
@@ -51,9 +53,9 @@ def create():
   while True:
     answer = input('(yes/no) ').lower()
 
-    if answer == 'yes' : break
-    elif answer == 'no': create()
-    else               : continue
+    if   answer == 'yes' : break
+    elif answer == 'no'  : create()
+    else                 : continue
 
   conn = None
   try:
@@ -62,16 +64,23 @@ def create():
     error('unable to connect to database', True)
 
   cur = conn.cursor()
-  cur.execute('SELECT id FROM admins WHERE email = %s', (email,))
+  cur.execute('SELECT id FROM users WHERE email = %s', (email,))
 
   if cur.rowcount:
-    error('admin account already exists')
+    error('\naccount with email address {} already exists'.format(email))
 
   password_hash = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt()).decode('utf8')
   try:
     print('\ncreating account...')
-    cur.execute('INSERT INTO admins (first_name, last_name, email, password) values'
-      '(%s, %s, %s, %s)', (first_name, last_name, email, password_hash))
+
+    account_creator = '{}@{}'.format(getpass.getuser(), socket.gethostname())
+    cur.execute(
+      'INSERT INTO users '
+        '(first_name, last_name, email, password, type, created_by) '
+      'VALUES '
+        '(%s, %s, %s, %s, %s, %s)',
+        (first_name, last_name, email, password_hash, 'admin', account_creator)
+    )
 
     conn.commit()
     cur.close()
