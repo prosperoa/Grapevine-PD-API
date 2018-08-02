@@ -11,3 +11,17 @@ def get_users(req):
     return server.bad_req('invalid params')
 
   return users_controller.get_users(page_size, page_index)
+
+def create_user(req):
+  try:
+    req = req.get_json()
+  except:
+    return server.bad_req()
+
+  first_name = req['first_name']
+  last_name = req['last_name']
+  email = req['email']
+  password = req['password']
+  created_by = req['created_by']
+
+  return users_controller.create_user(first_name, last_name, email, password, created_by)

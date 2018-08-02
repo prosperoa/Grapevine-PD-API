@@ -39,6 +39,9 @@ def login() : return auth_handler.login(request)
 @app.route('/users', methods=['GET'])
 def get_users() : return users_handler.get_users(request)
 
+@app.route('/users/create', methods=['POST'])
+def create_user() : return users_handler.create_user(request)
+
 
 @app.errorhandler(400)
 def page_not_found(err):
