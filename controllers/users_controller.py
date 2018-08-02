@@ -36,4 +36,4 @@ def create_user(first_name, last_name, email, password, created_by):
 
       return server.ok(data=cur.fetchone())
   except:
-    return server.error('unable to get users')
+    return server.error('unable to create user')
