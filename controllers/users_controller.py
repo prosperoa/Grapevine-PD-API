@@ -2,16 +2,19 @@ import bcrypt
 import server
 from database import Cursor, Database as db
 
-def get_users(page_size, page_index):
+def get_users(page_size, page_index, name):
+  query = "SELECT * FROM users WHERE type = 'regular' "
+
+  if name:
+    query += "AND levenshtein(first_name, '{0}') <= 2 or levenshtein(last_name, '{0}') <= 2 " \
+      .format(name)
+
+  query += "ORDER BY created_by ASC LIMIT {} OFFSET {}".format(page_size,
+    page_size * page_index)
+
   try:
     with Cursor() as cur:
-      cur.execute(
-        "SELECT * FROM users "
-        "WHERE type = 'regular' "
-        "ORDER BY created_by ASC "
-        "LIMIT %s OFFSET %s",
-        (page_size, page_size * page_index)
-      )
+      cur.execute(query)
 
       if cur.rowcount:
         return server.ok(data=cur.fetchall())
