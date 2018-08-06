@@ -26,3 +26,9 @@ def create_user(req):
   created_by = req['created_by']
 
   return users_controller.create_user(first_name, last_name, email, password, created_by)
+
+def delete_user(user_id):
+  if user_id < 1:
+    return server.bad_req('invalid user id')
+
+  return users_controller.delete_user(user_id)

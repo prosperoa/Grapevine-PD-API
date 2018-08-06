@@ -40,3 +40,11 @@ def create_user(first_name, last_name, email, password, created_by):
       return server.ok(data=cur.fetchone())
   except:
     return server.error('unable to create user')
+
+def delete_user(user_id):
+  try:
+    with Cursor() as cur:
+      cur.execute('DELETE FROM users WHERE id = %s', (user_id,))
+      return server.ok(message='successfully deleted user')
+  except:
+    return server.error('unable to delete user')
