@@ -9,7 +9,7 @@ def get_users(page_size, page_index, name):
     query += "AND levenshtein(first_name, '{0}') <= 2 or levenshtein(last_name, '{0}') <= 2 " \
       .format(name)
 
-  query += "ORDER BY created_by ASC LIMIT {} OFFSET {}".format(page_size,
+  query += "ORDER BY created_on DESC LIMIT {} OFFSET {}".format(page_size,
     page_size * page_index)
 
   try:
