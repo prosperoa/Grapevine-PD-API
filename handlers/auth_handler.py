@@ -1,3 +1,5 @@
+import jwt
+import os
 import sys
 sys.path.append('../')
 import server
@@ -21,8 +23,20 @@ def login(req):
 
   return auth_controller.login(email, password, auth_type)
 
+def auth_user(req, user_id):
+  encoded_auth_token = req.headers['Authorization'].split(' ')[1]
 
-  if not email or not password:
-    return server.bad_req('missing email or password')
+  if not encoded_auth_token:
+    return server.bad_req('missing auth header')
 
-  return auth_controller.login(email, password)
+  decoded_auth_token = jwt.decode(
+    encoded_auth_token,
+    os.environ.get('JWT_SIGNING_KEY'),
+    algorithms=['HS256']
+  )
+  print(decoded_auth_token)
+
+  if decoded_auth_token['user_id'] != user_id:
+    return server.unauth()
+
+  return auth_controller.auth_user(user_id)

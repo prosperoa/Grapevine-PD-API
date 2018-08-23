@@ -42,6 +42,9 @@ def get_users() : return users_handler.get_users(request)
 @app.route('/users/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id) : return users_handler.delete_user(user_id)
 
+@app.route('/users/<int:user_id>/auth', methods=['POST'])
+def auth_user(user_id) : return auth_handler.auth_user(request, user_id)
+
 @app.route('/users/create', methods=['POST'])
 def create_user() : return users_handler.create_user(request)
 
