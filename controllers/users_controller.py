@@ -1,5 +1,7 @@
 import bcrypt
 import server
+import emails
+
 from database import Cursor, Database as db
 
 def get_users(page_size, page_index, name):
@@ -36,6 +38,8 @@ def create_user(first_name, last_name, email, password, created_by):
         'RETURNING *',
         (first_name, last_name, email, password_hash, created_by)
       )
+
+      emails.new_user(email, password)
 
       return server.ok(data=cur.fetchone())
   except:
