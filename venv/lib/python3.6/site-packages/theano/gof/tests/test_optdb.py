@@ -1,3 +1,4 @@
+from __future__ import absolute_import, print_function, division
 from unittest import TestCase
 
 from theano.compat import exc_message
@@ -17,6 +18,10 @@ class Test_DB(TestCase):
         db.register('b', Opt())
 
         db.register('c', Opt(), 'z', 'asdf')
+
+        self.assertTrue('a' in db)
+        self.assertTrue('b' in db)
+        self.assertTrue('c' in db)
 
         try:
             db.register('c', Opt())  # name taken
