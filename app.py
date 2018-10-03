@@ -8,6 +8,8 @@ from datetime import datetime
 from flask import Flask, abort, request
 from flask_cors import CORS
 from handlers import auth_handler, users_handler, image_handler
+sys.path.insert(0, 'grApevIne/convnets_keras')
+from alexnet_base import get_alexnet
 
 APP_NAME = 'Grapevine PD API'
 app = Flask(APP_NAME)
