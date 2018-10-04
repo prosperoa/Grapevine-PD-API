@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.ndimage
+import server
 import sys
 
 from datetime import datetime
@@ -9,7 +10,7 @@ from utils import *
 
 from keras.preprocessing import image
 
-def analyze_image(img):
+def analyze_image(img, alexnet):
   try:
     # predicting images
     img = image.load_img(img, target_size=(227, 227))
@@ -19,11 +20,13 @@ def analyze_image(img):
 
     images = np.vstack([x])
     classes = alexnet.predict(images)
-    print(classes)
 
     cust = {'cust': '001', 'name': 'Test Name',
             'time': datetime.now().time(), 'classes': [classes]}
 
-    print(cust)
-  except:
-    return 'exception'
+    print cust
+    # FIXME: classes is not json serializable
+    return server.ok(data=cust)
+  except Exception as e:
+    print e
+    return server.error('unable to analyze image')
