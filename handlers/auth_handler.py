@@ -1,9 +1,9 @@
 import jwt
 import os
-import sys
-sys.path.append('../')
 import server
-from controllers import auth_controller
+import sys
+
+sys.path.append('/controllers/auth_controller')
 
 def login(req):
   try:
