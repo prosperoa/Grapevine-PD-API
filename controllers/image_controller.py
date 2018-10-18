@@ -10,10 +10,10 @@ from utils import *
 
 from keras.preprocessing import image
 
-def analyze_image(img, alexnet):
+def analyze_image(leaf, alexnet):
   try:
     # predicting images
-    img = image.load_img(img, target_size=(227, 227))
+    img = image.load_img(leaf, target_size=(227, 227))
 
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
