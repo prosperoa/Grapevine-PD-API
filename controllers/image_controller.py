@@ -21,12 +21,6 @@ def analyze_image(leaf, alexnet):
     images = np.vstack([x])
     classes = alexnet.predict(images)
 
-    cust = {'cust': '001', 'name': 'Test Name',
-            'time': datetime.now().time(), 'classes': [classes]}
-
-    print cust
-    # FIXME: classes is not json serializable
-    return server.ok(data=cust)
-  except Exception as e:
-    print e
+    return server.ok(data=classes[0].tolist())
+  except:
     return server.error('unable to analyze image')
