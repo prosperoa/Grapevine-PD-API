@@ -1,4 +1,5 @@
 .DS_Store
+*.pyc
 __pycache__
 *.pyc
 alexnet_weights_grapevine.h5
