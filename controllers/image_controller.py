@@ -19,8 +19,16 @@ def analyze_image(leaf, alexnet):
     x = np.expand_dims(x, axis=0)
 
     images = np.vstack([x])
-    classes = alexnet.predict(images)
+    results = [round(r * 100, 2) for r in alexnet.predict(images)[0].tolist()]
+    results = {
+      'BlackRot': results[0],
+      'Control': results[1],
+      'Esca': results[2],
+      'LeafSpot': results[3],
+      'Other': results[4],
+      'Pierce\'s Disease': results[5]
+    }
 
-    return server.ok(data=classes[0].tolist())
+    return server.ok(data=results)
   except:
     return server.error('unable to analyze image')
