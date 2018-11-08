@@ -92,4 +92,4 @@ if __name__ == '__main__':
   alexnet = get_alexnet(input_size, nb_classes, mean_flag)
   alexnet.load_weights(weights, by_name=True)
 
-  app.run()
+  app.run(host="136.168.201.106")

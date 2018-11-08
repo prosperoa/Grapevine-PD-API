@@ -1,18 +1,17 @@
 import os
-os.environ['THEANO_FLAGS'] = "device=gpu"
+os.environ['THEANO_FLAGS'] = "device=cuda"
 os.environ['KERAS_BACKEND'] = "theano"
 
-import sys
-sys.path.insert(0, '../convnets-keras')
+#import sys
+#sys.path.insert(0, '../convnets-keras')
 
 from keras import backend as K
 from theano import tensor as T
 from keras.models import Model
-from keras.layers import Flatten, Dense, Dropout, Reshape, Permute, Activation, \
-    Input, merge, Lambda, Conv2D
+from keras.layers import Flatten, Dense, Dropout, Reshape, Permute, Activation, Input, merge, Lambda, Conv2D
 from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D
-from convnetskeras.customlayers import convolution2Dgroup, crosschannelnormalization, \
-    splittensor, Softmax4D
+from convnetskeras.customlayers import crosschannelnormalization, splittensor
+#, convolution2Dgroup, Softmax4D
 
 
 def mean_subtract(img):

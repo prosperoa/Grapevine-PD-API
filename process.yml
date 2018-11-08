@@ -1,0 +1,4 @@
+apps:
+        - script        : python app.py
+          instances     : 1
+          watch         : true
