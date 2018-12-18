@@ -1,4 +1,5 @@
-from controllers import image_controller
+import sys
+sys.path.append("/controllers/image_controller")
 
 def analyze_image(req, alexnet):
   img = req.files['image']

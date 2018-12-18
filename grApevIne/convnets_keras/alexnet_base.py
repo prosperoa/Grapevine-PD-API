@@ -1,18 +1,16 @@
 import os
-os.environ['THEANO_FLAGS'] = "device=gpu"
+os.environ['THEANO_FLAGS'] = "device=cuda"
 os.environ['KERAS_BACKEND'] = "theano"
 
-import sys
-sys.path.insert(0, '../convnets-keras')
+#import sys
+#sys.path.insert(0, '../convnets-keras')
 
 from keras import backend as K
 from theano import tensor as T
 from keras.models import Model
-from keras.layers import Flatten, Dense, Dropout, Reshape, Permute, Activation, \
-    Input, merge, Lambda, Conv2D
+from keras.layers import Flatten, Dense, Dropout, Reshape, Permute, Activation, Input, merge, Lambda, Conv2D
 from keras.layers.convolutional import Convolution2D, MaxPooling2D, ZeroPadding2D
-from convnetskeras.customlayers import convolution2Dgroup, crosschannelnormalization, \
-    splittensor, Softmax4D
+from convnetskeras.customlayers import crosschannelnormalization, splittensor
 
 
 def mean_subtract(img):
@@ -41,10 +39,10 @@ def get_alexnet(input_shape,nb_classes,mean_flag):
 	conv_2 = crosschannelnormalization(name="convpool_1")(conv_2)
 	conv_2 = ZeroPadding2D((2,2))(conv_2)
 	conv_2 = merge([
-	    Conv2D(128,(5,5),kernel_initializer='he_normal',activation="relu",
-                name='conv_2_'+str(i+1))
-                (splittensor(ratio_split=2,id_split=i)(conv_2)
-	    ) for i in range(2)], mode='concat',concat_axis=1,name="conv_2")
+                Conv2D(128,(5,5),kernel_initializer='he_normal',activation="relu",
+                    name='conv_2_'+str(i+1))(
+                    splittensor(ratio_split=2,id_split=i)(conv_2)
+                ) for i in range(2)], mode='concat',concat_axis=1,name="conv_2")
 
 	conv_3 = MaxPooling2D((3, 3), strides=(2, 2))(conv_2)
 	conv_3 = crosschannelnormalization()(conv_3)

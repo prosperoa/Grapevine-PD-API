@@ -91,5 +91,5 @@ if __name__ == '__main__':
   mean_flag = True # if False, then the mean subtraction layer is not prepended
   alexnet = get_alexnet(input_size, nb_classes, mean_flag)
   alexnet.load_weights(weights, by_name=True)
-
-  app.run()
+  
+  app.run(host="136.168.201.106", port="5001")
