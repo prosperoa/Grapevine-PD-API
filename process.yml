@@ -1,0 +1,5 @@
+apps:
+        - script: bash startEnv.sh
+        - script: python2 app.py
+          instances: 1
+          watch: true

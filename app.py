@@ -55,7 +55,7 @@ def create_user() : return users_handler.create_user(request)
 
 @app.route('/analyze', methods=['POST'])
 def analyze_image():
-  return image_handler.analyze_image(request, alexnet)
+  return image_handler.process_image(request, alexnet)
 
 
 @app.errorhandler(400)
