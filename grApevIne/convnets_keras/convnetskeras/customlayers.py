@@ -1,7 +1,7 @@
 import numpy as np
 import theano.tensor as T
-from keras.layers.core import  Lambda
-from keras.layers import merge
+#from keras.layers.core import  Lambda
+from keras.layers import merge, Lambda
 from keras.layers.convolutional import Convolution2D
 from keras import backend as K
 
