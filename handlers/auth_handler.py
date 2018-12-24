@@ -3,7 +3,8 @@ import os
 import server
 import sys
 
-sys.path.append('/controllers/auth_controller')
+sys.path.append('controllers')
+import auth_controller
 
 def login(req):
   try:
@@ -32,9 +33,8 @@ def auth_user(req, user_id):
   decoded_auth_token = jwt.decode(
     encoded_auth_token,
     os.environ.get('JWT_SIGNING_KEY'),
-    algorithms=['HS256']
+    'HS256'
   )
-  print(decoded_auth_token)
 
   if decoded_auth_token['user_id'] != user_id:
     return server.unauth()
