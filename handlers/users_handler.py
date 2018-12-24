@@ -1,7 +1,8 @@
 import sys
 import server
-#from controllers import users_controller
-sys.path.append('controller/users_controller')
+
+sys.path.append('controllers')
+import users_controller
 
 def get_users(req):
   page_size = int(req.args['page_size'])

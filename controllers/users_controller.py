@@ -26,7 +26,7 @@ def get_users(page_size, page_index, name):
     return server.error('unable to get users')
 
 def create_user(first_name, last_name, email, password, created_by):
-  password_hash = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt()).decode('utf8')
+  password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('UTF-8')
 
   try:
     with Cursor() as cur:
