@@ -11,7 +11,6 @@ SMTP_HOST = os.environ.get('SMTP_HOST')
 SMTP_PORT = os.environ.get('SMTP_PORT')
 SMTP_EMAIL = os.environ.get('SMTP_EMAIL')
 SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD')
-print(SMTP_HOST, SMTP_PORT, SMTP_EMAIL, SMTP_PASSWORD)
 
 def new_user(email, password):
   message = MIMEMultipart()
