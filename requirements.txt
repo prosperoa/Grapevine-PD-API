@@ -58,7 +58,7 @@ pipreqs==0.4.9
 prompt-toolkit==1.0.15
 protobuf==3.6.1
 psycopg2==2.7.1
-py==1.5.2
+py==1.10.0
 pyasn1==0.4.2
 pyasn1-modules==0.2.1
 pycodestyle==2.4.0
