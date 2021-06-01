@@ -90,7 +90,7 @@ termcolor==1.1.0
 Theano==1.0.3
 Twisted==17.9.0
 typed-ast==1.1.0
-urllib3==1.21.1
+urllib3==1.26.5
 virtualenv==15.1.0
 virtualenv-clone==0.3.0
 w3lib==1.19.0
