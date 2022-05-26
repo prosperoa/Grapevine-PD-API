@@ -88,7 +88,7 @@ tensorboard==1.10.0
 tensorflow==1.10.1
 termcolor==1.1.0
 Theano==1.0.3
-Twisted==17.9.0
+Twisted==22.4.0
 typed-ast==1.1.0
 urllib3==1.21.1
 virtualenv==15.1.0
